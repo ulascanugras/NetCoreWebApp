@@ -1,0 +1,21 @@
+﻿@using Moralabs_NetCoreWebApp.Models
+@model CategoryViewModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/site.css" />
+}
+
+<h1>Index</h1>
+
+<form asp-action="Save" asp-controller="Category" method="post">
+    <input asp-for="ID" type="hidden" />
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+
+    <label asp-for="Description"></label>
+    <input asp-for="Description" />
+
+    <input type="submit" />
+</form>
+

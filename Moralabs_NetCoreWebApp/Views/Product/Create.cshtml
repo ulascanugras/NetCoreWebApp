@@ -1,0 +1,89 @@
+﻿@using Moralabs_NetCoreWebApp.Models
+@model ProductViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/site.css" />
+    var categories = (List<CategoryViewModel>)ViewBag.Categories;
+    var suppliers = (List<SupplierViewModel>)ViewBag.Suppliers;
+}
+
+<h1>Index</h1>
+<h2>@(TempData["mesaj"])</h2>
+
+@{
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+
+    foreach (var item in categories)
+    {
+        listItems.Add(new SelectListItem()
+                {
+                    Value = item.ID.ToString(),
+                    Text = item.Name
+                });
+    }
+
+    List<SelectListItem> listItems1 = new List<SelectListItem>();
+
+    foreach (var item in suppliers)
+    {
+        listItems1.Add(new SelectListItem()
+                {
+                    Value = item.SupplierID.ToString(),
+                    Text = item.CompanyName
+                });
+    }
+}
+
+<form asp-action="Save" asp-controller="Product" method="post">
+    @*<label asp-for="ProductName"></label>*@
+
+
+    <div class="form-group">
+        <label asp-for=ProductName></label>
+        <input class="form-control" asp-for="ProductName" aria-label="ProductName" placeholder="Product Name" />
+        
+    </div>
+
+    <div class="form-group">
+        <label asp-for=CategoryName></label>
+        <select asp-for="CategoryID" class="custom-select" id="inputGroupSelect01">
+            
+            <option selected>Choose...</option>
+            @{
+                foreach (var item in listItems)
+                {
+                    <option value=@item.Value>@item.Text</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for=SupplierName></label>
+        <select asp-for="SupplierID" class="custom-select" id="inputGroupSelect01">
+            
+            <option selected>Choose...</option>
+            @{
+                foreach (var item in listItems1)
+                {
+                    <option value=@item.Value>@item.Text</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for=UnitPrice></label>
+        <input type="text" class="form-control" asp-for="UnitPrice" aria-label="Unit Price" placeholder="Unit Price" />
+        
+    </div>
+
+    <div class="form-group">
+        <label asp-for=UnitsInStock></label>
+        <input type="number" class="form-control" asp-for="UnitsInStock" aria-label="UnitsInStock" placeholder="Units in Stock" />
+        
+    </div>
+    <input type="submit" class="btn btn-primary" value="Kaydet" style="float:right"/>
+</form>
